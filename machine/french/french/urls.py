@@ -19,11 +19,9 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('calculator', include('calculator.urls')),  # Include your app's URLs here
+    path('newone/', include('newone.urls')), 
+    path('calculator/', include('calculator.urls')),  
 ]
-
-
 

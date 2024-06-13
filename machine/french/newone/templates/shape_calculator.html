@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shape Calculator</title>
+    <script>
+        function updateFields() {
+            const shapeType = document.getElementById('shape_type').value;
+            document.getElementById('side_field').style.display = 'none';
+            document.getElementById('length_field').style.display = 'none';
+            document.getElementById('width_field').style.display = 'none';
+            document.getElementById('radius_field').style.display = 'none';
+
+            if (shapeType === 'Square') {
+                document.getElementById('side_field').style.display = 'block';
+            } else if (shapeType === 'Rectangle') {
+                document.getElementById('length_field').style.display = 'block';
+                document.getElementById('width_field').style.display = 'block';
+            } else if (shapeType === 'Circle') {
+                document.getElementById('radius_field').style.display = 'block';
+            }
+        }
+
+        // Ensure the fields are updated when the page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            updateFields();
+        });
+    </script>
+</head>
+<body>
+    <h1>Shape Calculator</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="shape_type">Shape Type:</label>
+        <select name="shape_type" id="shape_type" onchange="updateFields()">
+            <option value="Square">Square</option>
+            <option value="Rectangle">Rectangle</option>
+            <option value="Circle">Circle</option>
+        </select>
+        <br><br>
+        <div id="side_field" style="display: none;">
+            <label for="side">Side:</label>
+            <input type="number" name="side" id="side">
+        </div>
+        <div id="length_field" style="display: none;">
+            <label for="length">Length:</label>
+            <input type="number" name="length" id="length">
+        </div>
+        <div id="width_field" style="display: none;">
+            <label for="width">Width:</label>
+            <input type="number" name="width" id="width">
+        </div>
+        <div id="radius_field" style="display: none;">
+            <label for="radius">Radius:</label>
+            <input type="number" name="radius" id="radius">
+        </div>
+        <br><br>
+        <button type="submit">Calculate</button>
+    </form>
+    {% if perimeter and area %}
+    <h2>Results:</h2>
+    <p>Perimeter: {{ perimeter }}</p>
+    <p>Area: {{ area }}</p>
+    {% endif %}
+</body>
+</html>
